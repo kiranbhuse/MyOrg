@@ -1,0 +1,81 @@
+<apex:page controller="AddProductsToDealPgCtrl">
+    <apex:form >
+        <apex:pageBlock title="Product Selection">
+            <apex:pageMessages />
+            
+            <apex:pageBlock title="Search for titles">
+                <table border="1">
+                    <tr>
+                        <td colspan = "2">Search for titles</td>
+                    </tr>
+                    <tr>
+                        <th style="vertical-align:top;">Title</th>
+                        <td style="vertical-align:top;"><apex:inputText value="{!title}"/></td>
+                        <th style="vertical-align:top;">Type</th>
+                        <td style="vertical-align:top;">
+    
+                            <apex:selectList value="{!productType}" multiselect="false">
+                                <apex:selectOptions value="{!productTypeItems}"/>
+                            </apex:selectList><p/>
+                            
+                        </td>
+                    </tr>
+                </table>
+            
+                <apex:commandButton value="Search records" action="{!search}" rerender="SearchResultPagination"/>  
+                <apex:commandButton value="Clear records" action="{!search}"/>  
+            </apex:pageBlock>
+            
+            <apex:pageBlock title="Selected Products" id="SelectedProducts">
+                Cart: <apex:outputText value="{!listProductIdsToBeAdded.size}" /> products Added.
+            </apex:pageBlock>
+            
+            <apex:pageBlock title="SearchResultPagination" id="SearchResultPagination">
+                 <apex:pageblockTable value="{!datalist}" var="pw">
+                         <apex:column >Hi !!!</apex:column>
+                         <apex:column ><apex:outputText value="{!datalist.size}"></apex:outputText></apex:column>
+                 </apex:pageblockTable>
+                
+                <!-- 
+                <apex:pageblockButtons >
+                    <apex:commandButton value="First Page" rerender="details" action="{!FirstPage}" disabled="{!prev}"/>
+                    <apex:commandButton value="Previous" rerender="details" action="{!previous}" disabled="{!prev}"/>
+                    <apex:commandButton value="Next" rerender="details" action="{!next}" disabled="{!nxt}"/>
+                    <apex:commandButton value="Last Page" rerender="details" action="{!LastPage}" disabled="{!nxt}"/>
+                </apex:pageblockButtons>
+                 -->
+            </apex:pageBlock>
+            
+            <!-- 
+            <apex:pageBlock title="SearchResult" id="SearchResult"> 
+                <apex:pageblockTable value="{!productWrapper.mapProductN}" var="mapKey"> 
+                    <apex:column >  
+                        <table border="1" style="width:100%">
+                            <tr>
+                                <apex:repeat value="{!productWrapper.mapProductN[mapKey]}" var="lstItem">
+                                    <td style="width:20%; text-align: center;">
+                                        <span style="font-weight:bold;"><apex:outputField value="{!lstItem.Name}" /></span><br/>
+                                        <apex:outputField value="{!lstItem.Picture_Thumbnail__c}" /><br/>
+                                        Quantity: <apex:inputField value="{!lstItem.Quantity__c}" style="width: 25px;" />
+                                        <apex:commandButton value="Add" action="{!addProduct}" rendered="{!lstItem.Stock__c != null}"  rerender="hiddenBlock, SelectedProducts">
+                                            <apex:param name="productIdToBeAdded" value="{!lstItem.Id}" assignTo="{!productIdToBeAdded}"/>
+                                        </apex:commandButton>
+                                        <apex:pageBlock id="hiddenBlock" rendered="false"></apex:pageBlock>
+                                        
+                                        <br/>
+                                        <apex:outputField value="{!lstItem.Stock__c}" /> units available<br/><br/><br/>
+        
+                                    </td>
+                                </apex:repeat>
+                                    <td style="width: 100%;">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </apex:column>
+                </apex:pageblockTable> 
+            </apex:pageBlock> 
+            -->
+        </apex:pageBlock>
+        
+    </apex:form>
+
+</apex:page>

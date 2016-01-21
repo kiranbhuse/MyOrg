@@ -1,0 +1,28 @@
+<apex:page controller="LeadOperationsController">
+    <apex:form >
+        <apex:pageBlock title="Lead Filters">
+            <apex:pageMessages />
+        
+            <table border="1">
+                <tr>
+                    <th style="vertical-align:top;">Status:</th>
+                    <td style="vertical-align:top;">
+                        <apex:selectList value="{!leadStatus}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!leadStatusItems}"/>
+                        </apex:selectList><p/>
+                    </td>
+                </tr>
+            </table>
+            <apex:commandButton value="Search" action="{!displayLeads}" reRender="SearchResult"/>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="SearchResult" id="SearchResult">
+            <apex:pageblockTable value="{!leads}" var="lead">
+                <apex:column title="Name">{!lead.Name}</apex:column>
+                <apex:column title="Status">{!lead.Status}</apex:column>
+                <apex:column title="Owner">{!lead.owner.Name}</apex:column>
+            </apex:pageblockTable>
+        </apex:pageBlock>            
+    </apex:form>
+            
+</apex:page>
